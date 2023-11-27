@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryController {
 
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
     @PostMapping(path = "/addCategory")
     public void addCategory(@RequestBody Category category) {
@@ -24,8 +24,13 @@ public class CategoryController {
         return categoryService.getAllCategories();
     }
 
+    @GetMapping(path = "/getCategoryById")
+    public Category getCategoryById(Long id) {
+        return categoryService.getCategoryById(id);
+    }
+
     @DeleteMapping(path = "/deleteCategoryById/{id}")
-    public void deleteCategoryById(@PathVariable Integer id) {
+    public void deleteCategoryById(@PathVariable Long id) {
         categoryService.deleteCategoryById(id);
     }
 
@@ -33,4 +38,5 @@ public class CategoryController {
     public void deleteAllCategories() {
         categoryService.deleteAllCategories();
     }
+
 }

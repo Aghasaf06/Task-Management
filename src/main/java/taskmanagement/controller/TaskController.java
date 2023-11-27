@@ -2,6 +2,7 @@ package taskmanagement.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import taskmanagement.entity.Category;
 import taskmanagement.entity.Task;
 import taskmanagement.service.TaskService;
 
@@ -12,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TaskController {
 
-    private TaskService taskService;
+    private final TaskService taskService;
 
     @PostMapping(path = "/addTask")
     public void addTask(@RequestBody Task task) {
@@ -24,8 +25,13 @@ public class TaskController {
         return taskService.getAllTasks();
     }
 
+    @GetMapping(path = "/getTaskById")
+    public Task getTaskById(Long id) {
+        return taskService.getTaskById(id);
+    }
+
     @DeleteMapping(path = "/deleteTaskById/{id}")
-    public void deleteTaskById(@PathVariable Integer id) {
+    public void deleteTaskById(@PathVariable Long id) {
         taskService.deleteTaskById(id);
     }
 
@@ -33,4 +39,10 @@ public class TaskController {
     public void deleteAllTasks() {
         taskService.deleteAllTasks();
     }
+
+
+
+    /*@OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tc", referencedColumnName = "id")
+    List<Task> tasks;*/
 }

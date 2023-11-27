@@ -3,6 +3,7 @@ package taskmanagement.entity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -15,7 +16,10 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    Long id;
 
-    String categoryName;
+    String name;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    List<Task> tasks;
 }

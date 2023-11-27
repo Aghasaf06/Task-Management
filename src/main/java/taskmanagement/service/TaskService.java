@@ -2,6 +2,7 @@ package taskmanagement.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import taskmanagement.entity.Category;
 import taskmanagement.entity.Task;
 import taskmanagement.repository.TaskRepository;
 
@@ -21,7 +22,11 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public void deleteTaskById(Integer id) {
+    public Task getTaskById(Long id) {
+        return taskRepository.getById(id);
+    }
+
+    public void deleteTaskById(Long id) {
         taskRepository.deleteById(id);
     }
 
