@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import taskmanagement.entity.Category;
 import taskmanagement.entity.Task;
+import taskmanagement.model.TaskPriority;
+import taskmanagement.model.TaskStatus;
 import taskmanagement.repository.TaskRepository;
 
 import java.util.List;
@@ -32,5 +34,17 @@ public class TaskService {
 
     public void deleteAllTasks() {
         taskRepository.deleteAll();
+    }
+
+    public List<Task> getTasksByCategoryName(String categoryName) {
+        return taskRepository.getTasksByCategoryName(categoryName);
+    }
+
+    public List<Task> getTasksByPriority(TaskPriority priority) {
+        return taskRepository.getTasksByPriority(priority);
+    }
+
+    public List<Task> getTasksByStatus(TaskStatus status) {
+        return taskRepository.getTasksByStatus(status);
     }
 }

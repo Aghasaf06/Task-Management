@@ -1,6 +1,7 @@
 package taskmanagement.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import taskmanagement.entity.Category;
 import taskmanagement.service.CategoryService;

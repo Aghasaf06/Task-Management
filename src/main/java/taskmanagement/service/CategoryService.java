@@ -3,6 +3,7 @@ package taskmanagement.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import taskmanagement.entity.Category;
+import taskmanagement.entity.Task;
 import taskmanagement.repository.CategoryRepository;
 
 import java.util.List;

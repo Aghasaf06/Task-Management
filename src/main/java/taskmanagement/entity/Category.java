@@ -19,7 +19,4 @@ public class Category {
     Long id;
 
     String name;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    List<Task> tasks;
 }

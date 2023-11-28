@@ -37,12 +37,13 @@ public class Task {
     TaskStatus status;
 
     @CreationTimestamp
-    Instant createdAt;
+    LocalDateTime createdAt;
 
     @UpdateTimestamp
-    Instant updatedAt;
+    LocalDateTime updatedAt;
+    //Instant
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     Category category;
 }
