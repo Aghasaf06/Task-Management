@@ -1,4 +1,4 @@
-package taskmanagement.model;
+package taskmanagement.model.enums;
 
 public enum TaskStatus {
 

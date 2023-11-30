@@ -1,4 +1,4 @@
-package taskmanagement.entity;
+package taskmanagement.dao.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

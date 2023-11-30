@@ -3,10 +3,9 @@ package taskmanagement.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import taskmanagement.entity.Category;
-import taskmanagement.entity.Task;
-import taskmanagement.model.TaskPriority;
-import taskmanagement.model.TaskStatus;
+import taskmanagement.model.dto.TaskDto;
+import taskmanagement.model.enums.TaskPriority;
+import taskmanagement.model.enums.TaskStatus;
 import taskmanagement.service.TaskService;
 
 import java.util.List;
@@ -20,17 +19,17 @@ public class TaskController {
 
     @PostMapping(path = "/addTask")
     @Transactional
-    public void addTask(@RequestBody Task task) {
-        taskService.addTask(task);
+    public void addTask(@RequestParam String categoryName, @RequestBody TaskDto taskDto) {
+        taskService.addTask(categoryName, taskDto);
     }
 
     @GetMapping(path = "/getAllTasks")
-    public List<Task> getAllTasks() {
+    public List<TaskDto> getAllTasks() {
         return taskService.getAllTasks();
     }
 
     @GetMapping(path = "/getTaskById")
-    public Task getTaskById(Long id) {
+    public TaskDto getTaskById(Long id) {
         return taskService.getTaskById(id);
     }
 
@@ -44,18 +43,23 @@ public class TaskController {
         taskService.deleteAllTasks();
     }
 
+    @PostMapping(path = "/updateTask/{id}")
+    public void updateCategory(@PathVariable Long id, @RequestBody TaskDto taskDto) {
+        taskService.updateTask(id, taskDto);
+    }
+
     @GetMapping(path = "/getTasksByCategoryName")
-    public List<Task> getTasksByCategoryName(String name) {
+    public List<TaskDto> getTasksByCategoryName(String name) {
         return taskService.getTasksByCategoryName(name);
     }
 
     @GetMapping(path = "/getTasksByPriority")
-    public List<Task> getTasksByPriority(TaskPriority priority) {
+    public List<TaskDto> getTasksByPriority(TaskPriority priority) {
         return taskService.getTasksByPriority(priority);
     }
 
     @GetMapping(path = "/getTasksByStatus")
-    public List<Task> getTasksByStatus(TaskStatus status) {
+    public List<TaskDto> getTasksByStatus(TaskStatus status) {
         return taskService.getTasksByStatus(status);
     }
 }

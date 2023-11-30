@@ -1,31 +1,41 @@
 package taskmanagement.service;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import taskmanagement.entity.Category;
-import taskmanagement.entity.Task;
-import taskmanagement.model.TaskPriority;
-import taskmanagement.model.TaskStatus;
-import taskmanagement.repository.TaskRepository;
+import taskmanagement.dao.entity.Category;
+import taskmanagement.dao.entity.Task;
+import taskmanagement.mapper.TaskMapper;
+import taskmanagement.model.dto.TaskDto;
+import taskmanagement.model.enums.TaskPriority;
+import taskmanagement.model.enums.TaskStatus;
+import taskmanagement.dao.repository.TaskRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TaskService {
 
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
+    private final CategoryService categoryService;
 
-    public void addTask(Task task) {
+    public void addTask(String categoryName, TaskDto taskDto) {
+        Task task = TaskMapper.INSTANCE.toEntity(taskDto);
+        Category category = categoryService.getCategoryByName(categoryName);
+        task.setCategory(category);
         taskRepository.save(task);
     }
 
-    public List<Task> getAllTasks() {
-        return taskRepository.findAll();
+    public List<TaskDto> getAllTasks() {
+        return taskRepository.findAll()
+                .stream().map(TaskMapper.INSTANCE::toTaskDto)
+                .collect(Collectors.toList());
     }
 
-    public Task getTaskById(Long id) {
-        return taskRepository.getById(id);
+    public TaskDto getTaskById(Long id) {
+        Task task = taskRepository.getById(id);
+        return TaskMapper.INSTANCE.toTaskDto(task);
     }
 
     public void deleteTaskById(Long id) {
@@ -36,15 +46,26 @@ public class TaskService {
         taskRepository.deleteAll();
     }
 
-    public List<Task> getTasksByCategoryName(String categoryName) {
-        return taskRepository.getTasksByCategoryName(categoryName);
+    public void updateTask(Long id, TaskDto taskDto) {
+        taskRepository.updateTaskById(id, taskDto.getName(), taskDto.getDescription(), taskDto.getPriority(),
+                taskDto.getDeadline(), taskDto.getStatus());
     }
 
-    public List<Task> getTasksByPriority(TaskPriority priority) {
-        return taskRepository.getTasksByPriority(priority);
+    public List<TaskDto> getTasksByCategoryName(String categoryName) {
+        return taskRepository.getTasksByCategoryName(categoryName)
+                .stream().map(TaskMapper.INSTANCE::toTaskDto)
+                .collect(Collectors.toList());
     }
 
-    public List<Task> getTasksByStatus(TaskStatus status) {
-        return taskRepository.getTasksByStatus(status);
+    public List<TaskDto> getTasksByPriority(TaskPriority priority) {
+        return taskRepository.getTasksByPriority(priority)
+                .stream().map(TaskMapper.INSTANCE::toTaskDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<TaskDto> getTasksByStatus(TaskStatus status) {
+        return taskRepository.getTasksByStatus(status)
+                .stream().map(TaskMapper.INSTANCE::toTaskDto)
+                .collect(Collectors.toList());
     }
 }

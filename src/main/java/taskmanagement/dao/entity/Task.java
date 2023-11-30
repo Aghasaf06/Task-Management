@@ -1,14 +1,13 @@
-package taskmanagement.entity;
+package taskmanagement.dao.entity;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import taskmanagement.model.TaskPriority;
-import taskmanagement.model.TaskStatus;
+import taskmanagement.model.enums.TaskPriority;
+import taskmanagement.model.enums.TaskStatus;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
