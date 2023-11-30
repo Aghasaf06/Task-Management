@@ -19,12 +19,13 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Transactional
     @Modifying
-    @Query("update Task set name = :name, description = :description, priority = :priority, deadline = :deadline, status = :status where id = :id")
+    @Query("update Task set name = :name, description = :description, priority = :priority, deadline = :deadline, status = :status, category = :category where id = :id")
     void updateTaskById(@Param("id") Long id, @Param("name") String name,
                         @Param("description") String description,
                         @Param("priority") TaskPriority priority,
                         @Param("deadline") LocalDateTime deadline,
-                        @Param("status") TaskStatus status);
+                        @Param("status") TaskStatus status,
+                        @Param("category") Category category);
 
     List<Task> getTasksByCategoryName(String categoryName);
 

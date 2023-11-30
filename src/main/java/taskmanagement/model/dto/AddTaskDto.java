@@ -14,12 +14,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class TaskDto {
+public class AddTaskDto {
 
     String name;
     String description;
     TaskPriority priority;
     LocalDateTime deadline;
     TaskStatus status;
-    Category category;
 }

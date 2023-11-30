@@ -3,6 +3,7 @@ package taskmanagement.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import taskmanagement.model.dto.AddTaskDto;
 import taskmanagement.model.dto.TaskDto;
 import taskmanagement.model.enums.TaskPriority;
 import taskmanagement.model.enums.TaskStatus;
@@ -18,9 +19,8 @@ public class TaskController {
     private final TaskService taskService;
 
     @PostMapping(path = "/addTask")
-    @Transactional
-    public void addTask(@RequestParam String categoryName, @RequestBody TaskDto taskDto) {
-        taskService.addTask(categoryName, taskDto);
+    public void addTask(@RequestParam String categoryName, @RequestBody AddTaskDto addTaskDto) {
+        taskService.addTask(categoryName, addTaskDto);
     }
 
     @GetMapping(path = "/getAllTasks")
@@ -44,7 +44,7 @@ public class TaskController {
     }
 
     @PostMapping(path = "/updateTask/{id}")
-    public void updateCategory(@PathVariable Long id, @RequestBody TaskDto taskDto) {
+    public void updateTask(@PathVariable Long id, @RequestBody TaskDto taskDto) {
         taskService.updateTask(id, taskDto);
     }
 

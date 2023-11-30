@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import taskmanagement.dao.entity.Category;
 import taskmanagement.dao.entity.Task;
+import taskmanagement.mapper.AddTaskMapper;
 import taskmanagement.mapper.TaskMapper;
+import taskmanagement.model.dto.AddTaskDto;
 import taskmanagement.model.dto.TaskDto;
 import taskmanagement.model.enums.TaskPriority;
 import taskmanagement.model.enums.TaskStatus;
@@ -20,8 +22,8 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final CategoryService categoryService;
 
-    public void addTask(String categoryName, TaskDto taskDto) {
-        Task task = TaskMapper.INSTANCE.toEntity(taskDto);
+    public void addTask(String categoryName, AddTaskDto addTaskDto) {
+        Task task = AddTaskMapper.INSTANCE.toEntity(addTaskDto);
         Category category = categoryService.getCategoryByName(categoryName);
         task.setCategory(category);
         taskRepository.save(task);
@@ -48,7 +50,7 @@ public class TaskService {
 
     public void updateTask(Long id, TaskDto taskDto) {
         taskRepository.updateTaskById(id, taskDto.getName(), taskDto.getDescription(), taskDto.getPriority(),
-                taskDto.getDeadline(), taskDto.getStatus());
+                taskDto.getDeadline(), taskDto.getStatus(), taskDto.getCategory());
     }
 
     public List<TaskDto> getTasksByCategoryName(String categoryName) {
