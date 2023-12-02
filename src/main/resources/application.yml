@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 12345678
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+security:
+  auth:
+    whitelist: >
+      /swagger-resources,
+      /swagger-resources/**,
+      /configuration/ui,  
+      /configuration/security,
+      /swagger-ui.html,
+      /webjars/**,
+      /api/public/**,
+      /v3/api-docs/**,
+      /v3/api-docs,
+      /swagger-ui/**,
+      /v2/api-docs,
+      /api/v1/public/**,
+      /ws-registration/**,
+      /api/v1/users/**
+
+  jwt:
+    secret-key: qwertyuasdfgh123456
